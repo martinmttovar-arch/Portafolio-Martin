@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portafolio | Martín Martínez Tovar</title>
+  <style>
+    :root{
+      --bg:#0b1020;
+      --bg-soft:#111936;
+      --card:#141f3f;
+      --card-2:#1a2750;
+      --text:##111;
+      --muted:#555;
+      --line:rgba(255,255,255,.15);
+      --accent:#ff4d4d;
+      --accent-2:#ff1a1a;
+      --shadow:0 18px 40px rgba(0,0,0,.35);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+      background:
+      radial-gradient(circle at top left, rgba(255,0,0,.08), transparent 28%),
+      radial-gradient(circle at top right, rgba(255,100,100,.08), transparent 25%),
+      linear-gradient(180deg, #ffffff 0%, #ffeaea 100%);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    .container{
+      width:min(1120px, calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter: blur(12px);
+      background:rgba(8,16,31,.72);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:16px 0;
+    }
+
+    .brand{
+      font-weight:800;
+      letter-spacing:.3px;
+      font-size:1rem;
+    }
+
+    .brand span{
+      color:var(--accent);
+    }
+
+    .menu{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .menu a{
+      color: #ff4d4d  !important;
+  font-weight: 700;
+  text-decoration:none;
+  font-size:.95rem;
+  padding:10px 14px;
+  border-radius:999px;
+  transition:.25s ease;
+
+    }
+
+    .menu a:hover{
+      color:#ff1a1a !important;
+  background:rgba(0,0,0,.08);
+    }
+
+    .hero{
+      padding:84px 0 54px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:.92rem;
+      margin-bottom:16px;
+    }
+
+    h1{
+      margin:0 0 12px;
+      font-size:clamp(2.2rem, 5vw, 4.6rem);
+      line-height:1.05;
+      letter-spacing:-1.6px;
+    }
+
+    .subtitle{
+      font-size:clamp(1rem, 2vw, 1.2rem);
+      color:var(--muted);
+      max-width:720px;
+      margin:0 0 26px;
+    }
+
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:28px;
+    }
+
+    .hero-card h3{
+      margin:0 0 10px;
+      font-size:1.15rem;
+    }
+
+    .hero-card p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      text-decoration:none;
+      border:none;
+      cursor:pointer;
+      font-weight:700;
+      padding:14px 18px;
+      border-radius:14px;
+      transition:.25s ease;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      color:#07111d;
+      box-shadow:0 14px 26px rgba(98,208,255,.18);
+    }
+
+    .btn-secondary{
+      color:var(--text);
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+    }
+
+    section{
+      padding:34px 0;
+    }
+
+    .section-title{
+      font-size:1.9rem;
+      margin:0 0 10px;
+    }
+
+    .section-text{
+      color:var(--muted);
+      margin:0 0 24px;
+      max-width:760px;
+    }
+
+    .about-card,
+    .project-card,
+    .detail-card,
+    .contact-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(80,80,80,.08));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .about-card{
+      padding:28px;
+    }
+
+    .projects-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .project-card{
+      padding:22px;
+      transition:.25s ease;
+    }
+
+    .project-card:hover{
+      transform:translateY(-4px);
+      border-color:rgba(98,208,255,.28);
+    }
+
+    .project-icon{
+      width:52px;
+      height:52px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      font-size:1.4rem;
+      background:linear-gradient(135deg, rgba(98,208,255,.16), rgba(138,125,255,.18));
+      margin-bottom:16px;
+    }
+
+    .project-card h3,
+    .detail-card h3{
+      margin:0 0 8px;
+      font-size:1.15rem;
+    }
+
+    .project-card p{
+  color: #333;
+},
+    .detail-card p,
+    .detail-card li,
+    .contact-card p{
+      color:var(--muted);
+    }
+
+    .project-card a{
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:700;
+      display:inline-block;
+      margin-top:10px;
+    }
+
+    .details-wrap{
+      display:grid;
+      gap:18px;
+    }
+
+    .detail-card{
+      padding:24px;
+    }
+
+    .detail-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      margin-top:14px;
+    }
+
+    .mini-box{
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .mini-box strong{
+      display:block;
+      margin-bottom:8px;
+      color:var(--text);
+    }
+
+    .contact-card{
+      padding:28px;
+      text-align:center;
+    }
+
+    .mail{
+      display:inline-block;
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:800;
+      margin-top:8px;
+      font-size:1.05rem;
+    }
+
+    .footer{
+      padding:22px 0 36px;
+      color:var(--muted);
+      text-align:center;
+      font-size:.94rem;
+    }
+
+    @media (max-width: 920px){
+      .hero-grid,
+      .projects-grid,
+      .detail-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero{
+        padding-top:58px;
+      }
+    }
+
+    @media (max-width: 560px){
+      .menu{
+        display:none;
+      }
+
+      .hero-card,
+      .about-card,
+      .project-card,
+      .detail-card,
+      .contact-card{
+        padding:20px;
+      }
+
+      .container{
+        width:min(100% - 22px, 1120px);
+      }
+    }
+    .project-card.autocheck{
+  background: linear-gradient(180deg, rgba(150,255,0,.15), rgba(0,0,0,.9));
+}
+
+.project-card.sap{
+  background: linear-gradient(180deg, rgba(0,200,255,.15), rgba(0,0,0,.9));
+}
+
+.project-card.autoconnect{
+  background: linear-gradient(180deg, rgba(255,80,80,.25), rgba(0,0,0,.85)) !important;
+  color: #f3f3f3 !important;
+}
+.project-card h3,
+.project-card p,
+.project-card a{
+  color: #ffffff !important;
+}
+.menu a{
+  color:#222 !important;
+}
+
+.menu a:hover{
+  color:#000 !important;
+  background:rgba(0,0,0,.08) !important;
+}
+.menu a{
+  color: #ff4d4d !important;
+}
+
+.menu a:visited{
+  color: #ff4d4d !important;
+}
+
+.menu a:hover{
+  color: #ff1a1a !important;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo{
+  width:30px;
+  height:30px;
+  object-fit:contain;
+}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">Martín <span>Portafolio</span></div>
+      <div class="menu">
+        <a href="#inicio">Inicio</a>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#detalle">Detalle</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div>
+        <div class="badge">Portafolio de Evidencias | Diseño de Sistemas de Trabajo</div>
+        <h1>Martín Martínez Tovar</h1>
+        <p class="subtitle">
+          Ingeniero Administrador de Sistemas con enfoque en procesos de negocio y tecnologías empresariales como SAP.
+          Me interesa el desarrollo de soluciones que optimicen procesos y mejoren la experiencia del usuario.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#proyectos">Ver proyectos</a>
+          <a class="btn btn-secondary" href="#contacto">Contacto</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Resumen</h3>
+        <p>
+          Este sitio reúne tres proyectos que reflejan mi interés por la innovación, la mejora continua
+          y el uso de la tecnología para resolver problemas reales en diferentes contextos.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="sobre-mi">
+      <div class="container">
+        <h2 class="section-title">Sobre mí</h2>
+        <p class="section-text">
+          Soy Ingeniero Administrador de Sistemas con interés en la tecnología y los procesos de negocio. Me gusta entender cómo funcionan las cosas, analizar problemas y encontrar soluciones prácticas que realmente generen valor.
+
+A lo largo de mi formación y experiencia, he desarrollado habilidades en análisis, organización y mejora de procesos, especialmente en entornos relacionados con sistemas empresariales como SAP. Me considero una persona proactiva, con iniciativa y con interés constante en aprender y mejorar.
+
+Además, tengo una visión a futuro orientada al emprendimiento, especialmente en el desarrollo de aplicaciones tecnológicas que resuelvan problemas reales. Me interesa crear soluciones digitales útiles, accesibles y con impacto en la vida cotidiana de las personas, combinando tecnología con ideas de negocio innovadoras.
+        </p>
+
+       
+
+    <section id="proyectos">
+      <div class="container">
+        <h2 class="section-title">Proyectos</h2>
+        <p class="section-text">
+          Estos proyectos representan distintas áreas de interés: tecnología aplicada, procesos empresariales
+          y mejora organizacional.
+        </p>
+
+        <div class="projects-grid">
+          <article class="project-card autocheck">
+            <div class="project-icon">🚗</div>
+            <h3>AutoCheck – Aplicación de diagnóstico vehicular</h3>
+            <img src="autocheck logo.jpg" style="width:100%; border-radius:15px; margin:15px 0;">
+            <p>
+              Solución digital enfocada en interpretar códigos OBD-II de manera sencilla, ayudando a los usuarios
+              a entender las fallas de su vehículo y tomar mejores decisiones.
+            </p>
+            <a href="#autocheck">Ver detalle</a>
+          </article>
+
+          <article class="project-card sap">
+            <div class="project-icon">💻</div>
+            <h3>Soporte y mejora de procesos en SAP SD</h3>
+            <img src="Sap SD logo.jpg" style="width:100%; border-radius:15px; margin:15px 0;">
+            <p>
+              Participación en actividades de soporte funcional en SAP SD, enfocadas en el análisis de incidencias
+              y mejora de procesos comerciales.
+            </p>
+            <a href="#sap">Ver detalle</a>
+          </article>
+
+          <article class="project-card autoconnect">
+            <div class="project-icon">📱</div>
+            <h3>Car Connect – Aplicación de servicios automotrices</h3>
+            <img src="autoconect.jpg" style="width:100%; border-radius:15px; margin:15px 0;">
+            <p>
+             Aplicación digital que conecta usuarios con talleres mecánicos y refaccionarias cercanas, facilitando     la contratación de servicios automotrices de forma rápida, segura y confiable.
+            </p>
+            <a href="#procesos">Ver detalle</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="detalle">
+      <div class="container">
+        <h2 class="section-title">Detalle de proyectos</h2>
+        <p class="section-text">
+          A continuación se presenta una descripción más completa de cada proyecto, su propósito y el rol desempeñado.
+        </p>
+
+        <div class="details-wrap">
+          <article class="detail-card" id="autocheck">
+            <h3>🚗 AutoCheck – Aplicación de diagnóstico vehicular</h3>
+            <p>
+              AutoCheck es una propuesta de solución digital enfocada en la interpretación de códigos OBD-II,
+              diseñada para usuarios sin conocimientos técnicos en mecánica y electrónica.
+            </p>
+            <div class="detail-grid">
+              <div class="mini-box">
+                <strong>Problema que resuelve:</strong>
+                Muchos conductores no comprenden las fallas de su vehículo, lo que genera incertidumbre y gastos
+                innecesarios en talleres.
+              </div>
+              <div class="mini-box">
+                <strong>Qué hice:</strong>
+                Desarrollé la lógica del sistema para interpretar códigos, generar explicaciones claras y proponer
+                soluciones prácticas dependiendo del nivel de complejidad del problema.
+              </div>
+            </div>
+            <div class="mini-box" style="margin-top:18px;">
+              <strong>Tipo de proyecto:</strong>
+              Desarrollo / Propuesta tecnológica
+            </div>
+          </article>
+
+          <article class="detail-card" id="sap">
+            <h3>💻 Soporte y mejora de procesos en SAP SD</h3>
+            <p>
+              Participación en soporte funcional dentro del módulo SAP SD, enfocado en procesos de ventas y facturación.
+            </p>
+            <div class="detail-grid">
+              <div class="mini-box">
+                <strong>Problema que resuelve:</strong>
+                Incidencias en procesos comerciales que afectan la operación y continuidad del negocio.
+              </div>
+              <div class="mini-box">
+                <strong>Qué hice:</strong>
+                Analicé incidencias, validé información en el sistema, apoyé en ajustes funcionales y documentación
+                de procesos para mejorar la eficiencia operativa.
+              </div>
+            </div>
+            <div class="mini-box" style="margin-top:18px;">
+              <strong>Tipo de proyecto:</strong>
+              Experiencia profesional
+            </div>
+          </article>
+
+          <article class="detail-card" id="procesos">
+            <h3>📱 Car Connect – Aplicación de servicios automotrices</h3>
+            <p>
+              Plataforma digital orientada a conectar usuarios con talleres mecánicos y refaccionarias cercanas, facilitando el acceso a servicios automotrices de forma rápida, segura y confiable.
+            </p>
+            <div class="detail-grid">
+              <div class="mini-box">
+                <strong>Problema que resuelve:</strong>
+                Dificultad para encontrar talleres confiables, falta de transparencia en precios y riesgo de malas prácticas o servicios poco profesionales.
+              </div>
+              <div class="mini-box">
+                <strong>Qué hice:</strong>
+                Desarrollé la idea del modelo de negocio, definiendo la interacción entre usuarios y proveedores, así como las funcionalidades principales de la plataforma, como búsqueda de servicios, contacto directo y evaluación de talleres.
+                tiempos y reducir errores.
+              </div>
+            </div>
+            <div class="mini-box" style="margin-top:18px;">
+              <strong>Tipo de proyecto:</strong>
+              Propuesta de plataforma digital / modelo de negocio.
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="container">
+        <div class="contact-card">
+          <h2 class="section-title" style="margin-top:0;">Contacto</h2>
+          <p>
+            Si deseas conocer más sobre mis proyectos o establecer contacto profesional, puedes comunicarte conmigo en:
+          </p>
+          <a class="mail" href="mailto:martinmt.tovar@gmail.com">martinmt.tovar@gmail.com</a>
+          <p style="margin-top:18px;">
+            Gracias por visitar mi portafolio. Este espacio refleja mi interés en el desarrollo de soluciones tecnológicas
+            y la mejora continua de procesos.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="container footer">
+    © 2026 Martín Martínez Tovar · Portafolio de Proyectos
+  </div>
+</body>
+</html>
